@@ -35,3 +35,37 @@ Dado el conjunto `[345, 721, 425, 572, 836, 467, 672, 194, 365, 236, 891, 746, 4
 
 ```plaintext
 [194, 216, 236, 247, 345, 365, 389, 425, 431, 467, 529, 572, 672, 721, 746, 834, 836, 891]
+
+```
+
+Ejemplo de implementacion en python : 
+
+```python
+
+def radix_sort(arr):
+    max_num = max(arr)
+    max_digits = len(str(max_num))
+    place = 1
+
+    while max_digits > 0:
+        buckets = [[] for _ in range(10)]
+        for num in arr:
+            digit = (num // place) % 10
+            buckets[digit].append(num)
+        arr = []
+        for bucket in buckets:
+            arr.extend(bucket)
+        place *= 10
+        max_digits -= 1
+
+    return arr
+
+
+```
+En este caso para el ejemplo de uso, se utilizaria :
+
+```
+numeros = [345, 721, 425, 572, 836, 467, 672, 194, 365, 236, 891, 746, 431, 834, 247, 529, 216, 389]
+print("Original:", numeros)
+print("Ordenados:", radix_sort(numeros))
+
