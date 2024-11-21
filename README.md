@@ -69,3 +69,45 @@ numeros = [345, 721, 425, 572, 836, 467, 672, 194, 365, 236, 891, 746, 431, 834,
 print("Original:", numeros)
 print("Ordenados:", radix_sort(numeros))
 
+```
+
+Ejemplo completo del radix : 
+
+```python
+
+def radix_sort(arr):
+    # Encontrar el número máximo para conocer la longitud máxima
+    max_num = max(arr)
+    max_digits = len(str(max_num))  # Número de dígitos del número más grande
+
+    # Inicializar la posición del dígito
+    place = 1
+
+    # Iterar sobre cada posición de dígito
+    while max_digits > 0:
+        # Crear las cubetas (listas para agrupar)
+        buckets = [[] for _ in range(10)]  # Base 10
+
+        # Distribuir los números en las cubetas según el dígito actual
+        for num in arr:
+            digit = (num // place) % 10  # Extraer el dígito correspondiente
+            buckets[digit].append(num)
+
+        # Recoger los números de las cubetas en orden
+        arr = []
+        for bucket in buckets:
+            arr.extend(bucket)
+
+        # Avanzar a la siguiente posición del dígito
+        place *= 10
+        max_digits -= 1
+
+    return arr
+
+
+# Ejemplo de uso
+if __name__ == "__main__":
+    numeros = [345, 721, 425, 572, 836, 467, 672, 194, 365, 236, 891, 746, 431, 834, 247, 529, 216, 389]
+    print("Original:", numeros)
+    numeros_ordenados = radix_sort(numeros)
+    print("Ordenados:", numeros_ordenados)
